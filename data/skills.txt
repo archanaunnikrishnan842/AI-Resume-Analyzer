@@ -1,0 +1,53 @@
+Python
+Java
+C
+C++
+C#
+JavaScript
+TypeScript
+HTML
+CSS
+SQL
+MySQL
+PostgreSQL
+MongoDB
+Oracle
+React
+Angular
+Node.js
+Express
+Django
+Flask
+Spring Boot
+AWS
+Microsoft Azure
+Google Cloud
+Docker
+Kubernetes
+Git
+GitHub
+Linux
+Windows
+ServiceNow
+PowerShell
+Bash
+Terraform
+Jenkins
+Machine Learning
+Deep Learning
+Artificial Intelligence
+Data Science
+Data Analysis
+Natural Language Processing
+TensorFlow
+PyTorch
+Pandas
+NumPy
+Scikit-learn
+Power BI
+Tableau
+Excel
+Cybersecurity
+Networking
+Cloud Computing
+DevOps

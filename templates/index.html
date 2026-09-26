@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header class="hero">
+
+            <h1>🤖 AI Resume Analyzer</h1>
+
+            <p>
+                AI-Based Resume Analysis and Job Matching System
+            </p>
+
+        </header>
+
+
+        <main>
+
+            <section class="upload-card">
+
+                <h2>📄 Analyze Your Resume</h2>
+
+                <p>
+                    Upload your resume and enter a job description
+                    to analyze your resume.
+                </p>
+
+
+                <form action="/analyze"
+                      method="POST"
+                      enctype="multipart/form-data">
+
+
+                    <div class="form-group">
+
+                        <label for="resume">
+                            Upload Resume PDF
+                        </label>
+
+                        <input
+                            type="file"
+                            id="resume"
+                            name="resume"
+                            accept=".pdf"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="job_description">
+                            💼 Job Description
+                        </label>
+
+                        <textarea
+                            id="job_description"
+                            name="job_description"
+                            rows="8"
+                            placeholder="Paste the job description here..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="analyze-button"
+                    >
+                        🚀 Analyze Resume
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <section class="features">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Resume Score
+                    </h3>
+
+                    <p>
+                        Analyze the overall quality
+                        of your resume.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        ATS Analysis
+                    </h3>
+
+                    <p>
+                        Check important ATS-friendly
+                        resume sections.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Job Matching
+                    </h3>
+
+                    <p>
+                        Compare your resume with
+                        a job description.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        💡
+                    </div>
+
+                    <h3>
+                        Suggestions
+                    </h3>
+
+                    <p>
+                        Get suggestions to improve
+                        your resume.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <footer>
+
+            <p>
+                AI Resume Analyzer © 2026
+            </p>
+
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

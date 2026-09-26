@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Analysis Results</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <header class="hero">
+
+        <h1>
+            📊 Resume Analysis Results
+        </h1>
+
+        <p>
+            AI Resume Analyzer
+        </p>
+
+    </header>
+
+
+    <main>
+
+
+        <!-- RESUME SCORE -->
+
+        <section class="upload-card">
+
+            <h2>
+                📄 Resume Score
+            </h2>
+
+            <h1>
+                {{ resume_result["total_score"] }}/100
+            </h1>
+
+            <h3>
+                Score Breakdown
+            </h3>
+
+            <p>
+                🛠️ Skills:
+                {{ resume_result["skill_score"] }}
+            </p>
+
+            <p>
+                🎓 Education:
+                {{ resume_result["education_score"] }}
+            </p>
+
+            <p>
+                📁 Projects:
+                {{ resume_result["project_score"] }}
+            </p>
+
+            <p>
+                💼 Experience:
+                {{ resume_result["experience_score"] }}
+            </p>
+
+            <p>
+                🏆 Certifications:
+                {{ resume_result["certification_score"] }}
+            </p>
+
+            <p>
+                📧 Contact:
+                {{ resume_result["contact_score"] }}
+            </p>
+
+        </section>
+
+
+        <!-- DETECTED SKILLS -->
+
+        <section class="upload-card">
+
+            <h2>
+                🛠️ Detected Skills
+            </h2>
+
+            {% if detected_skills %}
+
+                {% for skill in detected_skills %}
+
+                    <span class="skill-pill">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>
+                    No technical skills detected.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- ATS ANALYSIS -->
+
+        <section class="upload-card">
+
+            <h2>
+                🤖 ATS Analysis
+            </h2>
+
+            <h1>
+                {{ ats_result["ats_score"] }}%
+            </h1>
+
+
+            <h3>
+                ATS Sections
+            </h3>
+
+
+            {% for section, present in ats_result["sections"].items() %}
+
+                {% if present %}
+
+                    <p>
+                        ✅ {{ section }}
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        ❌ {{ section }}
+                    </p>
+
+                {% endif %}
+
+            {% endfor %}
+
+
+            <h3>
+                💡 ATS Suggestions
+            </h3>
+
+
+            {% for suggestion in ats_result["suggestions"] %}
+
+                <p>
+                    💡 {{ suggestion }}
+                </p>
+
+            {% endfor %}
+
+        </section>
+
+
+        <!-- JOB MATCHING -->
+
+        <section class="upload-card">
+
+            <h2>
+                🎯 Job Matching
+            </h2>
+
+
+            {% if job_description.strip() %}
+
+
+                <h3>
+                    Job Match Score
+                </h3>
+
+                <h1>
+                    {{ job_match_score }}%
+                </h1>
+
+
+                <h3>
+                    🛠️ Skill Match
+                </h3>
+
+                <h1>
+                    {{ skill_match_percentage }}%
+                </h1>
+
+
+                <h3>
+                    ✅ Matching Skills
+                </h3>
+
+
+                {% if matching_skills %}
+
+                    {% for skill in matching_skills %}
+
+                        <span class="skill-pill">
+                            {{ skill }}
+                        </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p>
+                        No matching skills found.
+                    </p>
+
+                {% endif %}
+
+
+                <h3>
+                    ❌ Missing Skills
+                </h3>
+
+
+                {% if missing_skills %}
+
+                    {% for skill in missing_skills %}
+
+                        <span class="skill-pill">
+                            {{ skill }}
+                        </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p>
+                        No missing skills detected.
+                    </p>
+
+                {% endif %}
+
+
+                <h3>
+                    📋 Required Skills
+                </h3>
+
+
+                {% if job_skills %}
+
+                    {% for skill in job_skills %}
+
+                        <span class="skill-pill">
+                            {{ skill }}
+                        </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p>
+                        No specific technical skills detected
+                        in the job description.
+                    </p>
+
+                {% endif %}
+
+
+            {% else %}
+
+                <p>
+                    No job description was provided.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- RESUME SUGGESTIONS -->
+
+        <section class="upload-card">
+
+            <h2>
+                💡 Resume Improvement Suggestions
+            </h2>
+
+
+            {% if resume_suggestions %}
+
+                {% for suggestion in resume_suggestions %}
+
+                    <p>
+                        🔹 {{ suggestion }}
+                    </p>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>
+                    No suggestions available.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- EXTRACTED TEXT -->
+
+        <section class="upload-card">
+
+            <h2>
+                📝 Extracted Resume Text
+            </h2>
+
+            <textarea
+                rows="15"
+                readonly
+            >{{ resume_text }}</textarea>
+
+        </section>
+
+
+        <!-- DOWNLOAD REPORT -->
+
+        <section class="upload-card">
+
+            <h2>
+                📥 Download Report
+            </h2>
+
+            <form
+                action="/download-report"
+                method="POST"
+            >
+
+                <input
+                    type="hidden"
+                    name="resume_score"
+                    value="{{ resume_result['total_score'] }}"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="ats_score"
+                    value="{{ ats_result['ats_score'] }}"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="job_match_score"
+                    value="{{ job_match_score }}"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="skill_match_percentage"
+                    value="{{ skill_match_percentage }}"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="matching_skills"
+                    value="{{ matching_skills | join(',') }}"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="missing_skills"
+                    value="{{ missing_skills | join(',') }}"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="suggestions"
+                    value="{{ resume_suggestions | join('|') }}"
+                >
+
+
+                <button
+                    class="analyze-button"
+                    type="submit"
+                >
+                    📥 Download PDF Report
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- ANALYZE ANOTHER RESUME -->
+
+        <section class="upload-card">
+
+            <a href="/"
+               style="text-decoration: none;">
+
+                <button
+                    class="analyze-button"
+                    type="button"
+                >
+                    🔄 Analyze Another Resume
+                </button>
+
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            AI Resume Analyzer © 2026
+        </p>
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>
