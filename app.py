@@ -17,7 +17,7 @@ from modules.resume_suggestions import generate_resume_suggestions
 
 app = Flask(__name__)
 
-
+os.makedirs("uploads", exist_ok=True)
 @app.route("/")
 def home():
 
